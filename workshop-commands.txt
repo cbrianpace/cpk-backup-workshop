@@ -91,3 +91,17 @@ kubectl get volumesnapshot -n postgres-operator
 kubectl apply -k hippo/uat
 
 psql -U appuser -h hippo-uat-primary.postgres-operator -c "select * from test order by 1"
+
+## Clean-up
+
+kubectl delete -k hippo/dev
+kubectl delete -k hippo/uat
+kubectl delete -k hippo/prod
+
+kubectl delete -k snapshot/pgbackrest-snapshot-job
+
+Delete snapshots: `kubectl get volumesnapshot -o name`
+
+kubectl delete pvc hippo-deltarestore
+
+kc delete -k operator/install/default
